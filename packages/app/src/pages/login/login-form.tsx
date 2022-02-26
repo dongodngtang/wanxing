@@ -3,6 +3,7 @@ import { useState } from 'react';
 import styled from '@emotion/styled';
 import { ButtonNoPadding } from '@/components';
 import { SendMessageButton } from './send-message-button';
+import {useAuth} from '@/context/auth-context'
 
 const { TabPane } = Tabs;
 
@@ -38,6 +39,8 @@ const rules = {
 export const LoginForm = () => {
   const [loginType, setLoginType] = useState<LoginType>('password');
 
+  const { login: setLogin,isLogin } = useAuth();
+  console.log('%c 🍤 isLogin: ', 'font-size:12px;background-color: #FCA650;color:#fff;', isLogin);
   const [passwordForm] = Form.useForm();
   const [verifyCodeForm] = Form.useForm();
 
@@ -58,8 +61,12 @@ export const LoginForm = () => {
     );
     // 通过校验后到达这里
     if (loginType === 'password') {
+        // todo 
     } else {
+        // todo
     }
+    // 设置登录状态
+    setLogin()
   };
 
   return (

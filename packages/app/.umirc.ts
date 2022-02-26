@@ -5,7 +5,12 @@ export default defineConfig({
     type: 'none',
   },
   routes: [
-    { path: '/', component: '@/pages/index' },
+    { path: '/', component: '@/pages/index', wrappers: ['@/wrappers/auth'] },
+    {
+      exact: true,
+      path: '/login',
+      component: '@/pages/login',
+    },
   ],
   fastRefresh: {},
 });
