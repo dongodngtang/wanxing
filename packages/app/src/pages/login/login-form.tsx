@@ -4,7 +4,7 @@ import styled from '@emotion/styled';
 import { ButtonNoPadding } from '@/components';
 import { SendMessageButton } from './send-message-button';
 import {useAuth} from '@/context/auth-context'
-
+import {useHistory} from 'umi'
 const { TabPane } = Tabs;
 
 type LoginType = 'password' | 'verifycode';
@@ -38,6 +38,7 @@ const rules = {
 
 export const LoginForm = () => {
   const [loginType, setLoginType] = useState<LoginType>('password');
+  const history = useHistory()
 
   const { login: setLogin,isLogin } = useAuth();
   console.log('%c 🍤 isLogin: ', 'font-size:12px;background-color: #FCA650;color:#fff;', isLogin);
@@ -67,6 +68,9 @@ export const LoginForm = () => {
     }
     // 设置登录状态
     setLogin()
+    setTimeout(() => {
+        history.replace('/');
+      }, 300);
   };
 
   return (
