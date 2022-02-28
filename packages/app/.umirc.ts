@@ -5,12 +5,21 @@ export default defineConfig({
     type: 'none',
   },
   routes: [
-    { path: '/', component: '@/pages/index', wrappers: ['@/wrappers/auth'] },
     {
       exact: true,
       path: '/login',
-      component: '@/pages/login',
+      component: 'login',
     },
+    {
+      path: '/',
+      component: '@/layouts/index',
+      wrappers: ['@/wrappers/auth'],
+      routes: [
+        { path: '/', exact: true, component: '@/pages/selectCompetition' },
+        { path: '/mode', exact: true, component: '@/pages/selectMode' },
+      ],
+    },
+   
   ],
   fastRefresh: {},
 });
