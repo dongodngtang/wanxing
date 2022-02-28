@@ -1,9 +1,25 @@
-import styles from './index.less';
+import React from 'react';
+import styled from '@emotion/styled';
+import { PageHeader, FullScreenContainer } from '@/components';
 
-export default function IndexPage() {
+const Index: React.FC = ({ children }) => {
   return (
-    <div>
-      <h1 className={styles.title}>Page index</h1>
-    </div>
+    <LayContainer>
+      <PageHeader />
+      <LayoutMain>{children}</LayoutMain>
+    </LayContainer>
   );
-}
+};
+
+const LayContainer = styled(FullScreenContainer)`
+  display: flex;
+  flex-direction: column;
+`;
+const LayoutMain = styled.main`
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+export default Index;
