@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "noImplicitAny": true,
+    "sourceMap": false,
+    "moduleResolution": "node",
+    "outDir": "dist",
+    "baseUrl": "./",
+  },
+  "files": ["./src/main.ts"],
+  "include": [
+    "src/**/*",
+    "typings.d.ts"
+  ]
+}

@@ -1,6 +1,10 @@
 {
   "name": "root",
   "private": true,
+  "scripts": {
+    "start":"lerna exec yarn start --scope=app",
+    "ele":"lerna exec yarn start --scope=electron"
+  },
   "workspaces": [
     "packages/*"
   ],
