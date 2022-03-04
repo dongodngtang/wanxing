@@ -17,9 +17,25 @@ export default defineConfig({
       routes: [
         { path: '/', exact: true, component: '@/pages/selectCompetition' },
         { path: '/mode', exact: true, component: '@/pages/selectMode' },
+        {
+          path: '/validation',
+          exact: true,
+          component: '@/pages/validationBefore',
+        },
+        {
+          path: '/examination',
+          component: '@/layouts/examination',
+          routes: [
+            {
+              path: '/examination/library',
+              exact: true,
+              component: '@/pages/examinationLib',
+            },
+          ],
+        },
       ],
     },
-   
+    
   ],
   fastRefresh: {},
 });

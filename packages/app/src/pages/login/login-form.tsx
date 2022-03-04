@@ -1,10 +1,12 @@
 import { Card, Tabs, Form, Input } from 'antd';
 import { useState } from 'react';
 import styled from '@emotion/styled';
-import { ButtonNoPadding } from '@/components';
+import { ButtonNoPadding } from '@/components/lib';
 import { SendMessageButton } from './send-message-button';
-import {useAuth} from '@/context/auth-context'
-import {useHistory} from 'umi'
+import { useAuth } from '@/context/auth-context';
+import { useHistory } from 'umi';
+import { ROUTE_NAME } from '@/enum';
+
 const { TabPane } = Tabs;
 
 type LoginType = 'password' | 'verifycode';
@@ -12,41 +14,43 @@ type LoginType = 'password' | 'verifycode';
 const rules = {
   account: [
     {
-      require: true,
+      required: true,
       message: '请填写账号',
     },
   ],
   password: [
     {
-      require: true,
+      required: true,
       message: '请输入密码',
     },
   ],
   mobile: [
     {
-      require: true,
+      required: true,
       message: '请输入手机号码',
     },
   ],
   verifycode: [
     {
-      require: true,
+      required: true,
       message: '请输入验证码',
     },
   ],
 };
 
 export const LoginForm = () => {
-  const [loginType, setLoginType] = useState<LoginType>('password');
-  const history = useHistory()
+  const [loginType, setLoginType] = useState<'password' | 'verifycode'>(
+    'password',
+  );
 
-  const { login: setLogin,isLogin } = useAuth();
-  console.log('%c 🍤 isLogin: ', 'font-size:12px;background-color: #FCA650;color:#fff;', isLogin);
+  const { login: setLogin } = useAuth();
+
+  const history = useHistory();
+
   const [passwordForm] = Form.useForm();
   const [verifyCodeForm] = Form.useForm();
 
   const submit = () => {
-      console.log('提交',loginType)
     if (loginType === 'password') {
       passwordForm.submit();
     } else {
@@ -55,27 +59,20 @@ export const LoginForm = () => {
   };
 
   const onFinish = (formData: any) => {
-    console.log(
-      '%c 🍫 formData: ',
-      'font-size:12px;background-color: #F5CE50;color:#fff;',
-      formData,
-    );
     // 通过校验后到达这里
+    console.log('formData', formData);
     if (loginType === 'password') {
-        // todo 
     } else {
-        // todo
     }
-    // 设置登录状态
-    setLogin()
+    setLogin(); // 设置登录状态
     setTimeout(() => {
-        history.replace('/');
-      }, 300);
+      history.replace(ROUTE_NAME.selectCompetition);
+    }, 300);
   };
 
   return (
-    <LoginFormWarp>
-      <Title>欢迎您使用本系统</Title>
+    <LoginFormWrap>
+      <Title>欢迎您参加比赛</Title>
       <Tabs
         activeKey={loginType}
         onChange={(value) => setLoginType(value as LoginType)}
@@ -95,7 +92,7 @@ export const LoginForm = () => {
           </Form>
         </TabPane>
         <TabPane tab={'手机验证码登录'} key={'verifycode'}>
-          <Form form={verifyCodeForm} onFinish={onFinish}>
+          <Form form={verifyCodeForm}>
             <FormItem name={'mobile'} rules={rules['mobile']}>
               <LoginInput type="text" placeholder={'请输入手机号码'} />
             </FormItem>
@@ -109,15 +106,14 @@ export const LoginForm = () => {
           </Form>
         </TabPane>
       </Tabs>
-
       <LoginButton type={'primary'} onClick={submit}>
         登录
       </LoginButton>
-    </LoginFormWarp>
+    </LoginFormWrap>
   );
 };
 
-const LoginFormWarp = styled(Card)`
+const LoginFormWrap = styled(Card)`
   width: 55rem;
   min-height: 40rem;
   padding: 4rem;
@@ -135,8 +131,17 @@ const LoginFormWarp = styled(Card)`
 `;
 
 const Title = styled.p`
+  text-align: center;
   font-size: 2rem;
 `;
+
+const LoginInput = styled(Input)`
+  height: 6rem;
+  border: 1px solid #e9e6ef;
+  border-radius: 0.6rem;
+  font-size: 1.6rem;
+`;
+
 const LoginButton = styled(ButtonNoPadding)`
   color: white;
   background-color: #1890ff;
@@ -150,11 +155,4 @@ const FormItem = styled(Form.Item)`
   .ant-form-item-explain-error {
     text-align: left;
   }
-`;
-
-const LoginInput = styled(Input)`
-  height: 6rem;
-  border: 1px solid #e9e6ef;
-  border-radius: 0.6rem;
-  font-size: 1.6rem;
 `;

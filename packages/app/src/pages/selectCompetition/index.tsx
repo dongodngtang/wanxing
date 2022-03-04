@@ -3,6 +3,7 @@ import { useHeaderTitle } from '@/hooks/useHeaderTitle';
 import { Card } from 'antd';
 import { useHistory } from 'umi';
 import { useReducerContext } from '@/context/reducer-context';
+import { ROUTE_NAME } from '@/enum';
 
 const SelectCompetition = () => {
   useHeaderTitle('请选择您要进入的比赛');
@@ -12,7 +13,7 @@ const SelectCompetition = () => {
 
   const onSelect = (val: string) => {
     dispatch({ currentCompetition: val });
-    history.push('/mode');
+    history.push(ROUTE_NAME.selectMode);
   };
 
   return (

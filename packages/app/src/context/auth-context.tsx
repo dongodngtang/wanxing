@@ -9,7 +9,7 @@ interface InitContext {
 const AuthContext = React.createContext<InitContext | undefined>(undefined);
 
 export const AuthProvider: React.FC = ({ children }) => {
-  const [isLogin, setIsLogin] = useState(false);
+  const [isLogin, setIsLogin] = useState(true);
   const login = useCallback(() => {
     // todo
     // 设置token、用户的信息等

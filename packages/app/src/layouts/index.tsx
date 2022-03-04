@@ -18,8 +18,7 @@ const LayContainer = styled(FullScreenContainer)`
 const LayoutMain = styled.main`
   flex: 1;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  overflow-y: auto;
 `;
 
 export default Index;

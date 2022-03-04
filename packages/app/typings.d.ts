@@ -9,7 +9,9 @@ declare module '*.svg' {
   export default url;
 }
 
-
+declare interface DateConstructor {
+  _now: () => number;
+}
 declare interface Window {
   sendCustomE<ResponseData = any>(type: string, data?: any): Promise<ResponseData>;
   recvCustomE<T>(type:string,callback:(data:T)=>void):void;

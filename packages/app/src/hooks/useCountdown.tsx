@@ -1,38 +1,54 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
+import { useLatest } from './useLatest';
 
-type Stat = 'idle' | 'startCount' | 'finish';
+enum Status {
+  idle,
+  startCount,
+  finish,
+}
 
 export const useCountdown = (seconds: number) => {
   const [count, setCount] = useState(seconds);
-  const [stat, setStat] = useState<Stat>('idle');
-  const countRef = useRef(seconds);
+  const [stat, setStat] = useState<Status>(Status.idle);
+  const timer = useRef<NodeJS.Timeout>();
+
+  const countRef = useLatest(count);
+
   useEffect(() => {
-    countRef.current = count;
-  }, [count]);
+    return () => timer.current && clearTimeout(timer.current);
+  }, []);
+
   const countDown = useCallback(() => {
-    setTimeout(() => {
+    timer.current = setInterval(() => {
       if (countRef.current === 0) {
-        setCount(seconds);
-        countRef.current = seconds;
-        setStat('finish');
+        timer.current && clearTimeout(timer.current);
+        setCount(0);
+        setStat(Status.finish);
       } else {
         setCount(countRef.current - 1);
-        countDown();
       }
     }, 1000);
   }, [seconds]);
 
-  const startCount = useCallback(() => {
-    if (stat === 'startCount') return;
-    setStat('startCount');
-    countDown();
-  }, [stat]);
+  const startCount = useCallback(
+    (newSeconds?: number) => {
+      if (stat === Status.startCount && timer.current) {
+        clearInterval(timer.current);
+      }
+      // countRef.current = seconds;
+      setStat(Status.startCount);
+      newSeconds = newSeconds ?? seconds;
+      setCount(seconds);
+      countDown();
+    },
+    [setStat, countDown, stat],
+  );
 
   return {
     count,
     startCount,
-    isFinish: stat === 'finish',
-    isStartCount: stat === 'startCount',
-    isIdle: stat === 'idle',
+    isFinish: stat === Status.finish,
+    isStartCount: stat === Status.startCount,
+    isIdle: stat === Status.idle,
   };
 };
