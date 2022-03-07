@@ -2,13 +2,19 @@
   "name": "root",
   "private": true,
   "scripts": {
-    "start":"lerna exec yarn start --scope=app",
-    "ele":"lerna exec yarn start --scope=electron"
+    "start":"concurrently \"yarn start:app\" \"wait-on http://localhost:8000 && yarn start:ele\"",
+    "start:app":"lerna exec yarn start --scope=app",
+    "build:ele":"lerna exec yarn build --scope=electron",
+    "start:ele":"lerna exec yarn start --scope=electron",
+    "prepare": "husky install"
   },
   "workspaces": [
     "packages/*"
   ],
   "devDependencies": {
-    "lerna": "^4.0.0"
+    "lerna": "^4.0.0",
+    "husky": "^7.0.4",
+    "concurrently": "^7.0.0",
+    "wait-on": "^6.0.1"
   }
 }

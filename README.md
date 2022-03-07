@@ -1,13 +1,34 @@
-promise，箭头函数，let、var、const的区别
-状态码301和302的区别
-跨站请求伪造csrf
-css 居中
-position的值
-rem 单位
-vue父子组建通信
-手写实现requireJS模块实现
-了解过SEO吗？
-webpack底层实现原理
-w3c事件与IE事件的区别
-xss与csrf的原理与怎么防范
-amd和cmd区别
+# 项目简介
+使用lerna包管理工具+ umi + react hook + electron + TypeScript搭建项目
+
+
+# 项目运行
+
+```
+#安装依赖
+lerna bootstrap
+
+#项目运行
+yarn build:ele
+yarn start
+
+
+
+```
+
+# 项目结构
+
+```
+project-tree
+
+├─ packages
+│ ├─ app //主项目业务 umi+qiankun+ant
+│ ├─ electron //PC端打包业务
+├─ lerna.json
+├─ package.json
+└─ README.md
+
+
+```
+
+
