@@ -2,10 +2,11 @@
   "name": "root",
   "private": true,
   "scripts": {
-    "start":"concurrently \"yarn start:app\" \"wait-on http://localhost:8000 && yarn start:ele\"",
+    "start":"concurrently \"yarn start:vue3\" \"yarn start:app\" \"wait-on http://localhost:8000 && yarn start:ele\"",
     "start:app":"lerna exec yarn start --scope=app",
     "build:ele":"lerna exec yarn build --scope=electron",
     "start:ele":"lerna exec yarn start --scope=electron",
+    "start:vue3":"lerna exec yarn dev --scope=fast-vue3",
     "prepare": "husky install"
   },
   "workspaces": [
