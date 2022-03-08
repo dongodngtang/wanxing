@@ -25,7 +25,7 @@ const LinkVue3 = styled(Link)`
 `
 const MicroVue = styled(Vue3)`
   height:100vh;
-  width:60vw;
+  width:70vw;
 `
 const LoginContainer = styled(FullScreenContainer)`
   display: flex;
