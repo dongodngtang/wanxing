@@ -7,6 +7,9 @@
 # 项目运行
 
 ```
+#项目clone
+git clone https://github.com/dongodngtang/wanxing.git --recursive
+
 #运行环境
 yarn start:app的export NODE_OPTIONS=--openssl-legacy-provider;是解决node 17的问题
 node版本>=16，我使用的是最新的v17.6.0。node版本管理工具nvm
